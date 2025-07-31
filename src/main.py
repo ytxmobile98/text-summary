@@ -29,8 +29,18 @@ def summarize_with_gpt2(summaries: dict[str, Any], sample_text: str):
     gpt2_query = sample_text + "\nTL;DR:\n"
     pipe_out = pipe(gpt2_query, max_length=512,
                     clean_up_tokenization_spaces=True)
+    print("Summary with GPT-2:", pipe_out)
+
     summaries["gpt2"] = sent_tokenize(
         pipe_out[0]["generated_text"][len(gpt2_query):])
+
+
+def summarize_with_t5(summaries: dict[str, Any], sample_text: str):
+    pipe = pipeline("summarization", model="t5-small")
+    pipe_out = pipe(sample_text)
+    print("Summary with T5:", pipe_out)
+
+    summaries["t5"] = "\n".join(sent_tokenize(pipe_out[0]["summary_text"]))
 
 
 def main():
@@ -44,6 +54,7 @@ def main():
 
     summarize_baseline(summaries, sample_text)
     summarize_with_gpt2(summaries, sample_text)
+    summarize_with_t5(summaries, sample_text)
 
     print("Summaries:", summaries)
 
