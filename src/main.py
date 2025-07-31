@@ -51,6 +51,14 @@ def summarize_with_bart(summaries: dict[str, Any], sample_text: str):
     summaries["bart"] = "\n".join(sent_tokenize(pipe_out[0]["summary_text"]))
 
 
+def summarize_with_pegasus(summaries: dict[str, Any], sample_text: str):
+    pipe = pipeline("summarization", model="google/pegasus-cnn_dailymail")
+    pipe_out = pipe(sample_text)
+    print("Summary with PEGASUS:", pipe_out)
+
+    summaries["pegasus"] = pipe_out[0]["summary_text"].replace(" .<n>", ".\n")
+
+
 def main():
     dataset = load_dataset("cnn_dailymail", "3.0.0")
 
@@ -64,6 +72,7 @@ def main():
     summarize_with_gpt2(summaries, sample_text)
     summarize_with_t5(summaries, sample_text)
     summarize_with_bart(summaries, sample_text)
+    summarize_with_pegasus(summaries, sample_text)
 
     print("Summaries:", summaries)
 
