@@ -16,6 +16,18 @@ def tokenize_sentence():
     return tokenized_sentences
 
 
+def summarize(sample_text: str) -> dict[str, Any]:
+    summaries: dict[str, Any] = {}
+
+    summarize_baseline(summaries, sample_text)
+    summarize_with_gpt2(summaries, sample_text)
+    summarize_with_t5(summaries, sample_text)
+    summarize_with_bart(summaries, sample_text)
+    summarize_with_pegasus(summaries, sample_text)
+
+    return summaries
+
+
 def summarize_baseline(summaries: dict[str, Any], sample_text: str):
     def three_sentence_summary(text: str):
         return "\n".join(sent_tokenize(text)[:3])
@@ -62,18 +74,11 @@ def summarize_with_pegasus(summaries: dict[str, Any], sample_text: str):
 def main():
     dataset = load_dataset("cnn_dailymail", "3.0.0")
 
-    summaries: dict[str, Any] = {}
     sample_text: str = dataset["train"][1]["article"][:2000]
-
     tokenized_sentences = tokenize_sentence()
     print("Tokenized Sentences:", tokenized_sentences)
 
-    summarize_baseline(summaries, sample_text)
-    summarize_with_gpt2(summaries, sample_text)
-    summarize_with_t5(summaries, sample_text)
-    summarize_with_bart(summaries, sample_text)
-    summarize_with_pegasus(summaries, sample_text)
-
+    summaries: dict[str, Any] = summarize(sample_text)
     print("Summaries:", summaries)
 
 
