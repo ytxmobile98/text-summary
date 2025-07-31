@@ -82,10 +82,10 @@ def evaluate_summaries(summaries: dict[str, str], highlights: str):
 def evaluate_with_bleu(results: dict[str, str],
                        summaries: dict[str, str], highlights: str):
     bleu_metric = evaluate.load("sacrebleu")
-
-    for _, summary in summaries.items():
-        bleu_metric.add(predictions=summary, references=highlights)
-
+    bleu_metric.add_batch(
+        predictions=list(summaries.values()),
+        references=[highlights]*len(summaries),
+    )
     results["bleu"] = bleu_metric.compute()
 
 
