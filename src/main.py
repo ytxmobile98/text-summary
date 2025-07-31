@@ -4,7 +4,6 @@ import nltk
 from nltk.tokenize import sent_tokenize
 from transformers.pipelines import pipeline
 from transformers.trainer_utils import set_seed
-from typing import Any
 
 
 def tokenize_sentence():
