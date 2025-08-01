@@ -74,6 +74,7 @@ def evaluate_summaries(summaries: dict[str, str], highlights: str):
     results = {}
 
     evaluate_with_bleu(results, summaries, highlights)
+    evaluate_with_rouge(results, summaries, highlights)
 
     print("Evaluation Results:", results)
 
@@ -86,6 +87,16 @@ def evaluate_with_bleu(results: dict[str, str],
         references=[highlights]*len(summaries),
     )
     results["bleu"] = bleu_metric.compute()
+
+
+def evaluate_with_rouge(results: dict[str, str],
+                        summaries: dict[str, str], highlights: str):
+    rouge_metric = evaluate.load("rouge")
+    rouge_metric.add_batch(
+        predictions=list(summaries.values()),
+        references=[highlights]*len(summaries),
+    )
+    results["rouge"] = rouge_metric.compute()
 
 
 def main():
