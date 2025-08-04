@@ -7,5 +7,6 @@ requires-python = ">=3.12"
 dependencies = [
     "evaluate>=0.4.5",
     "nltk>=3.9.1",
+    "pytorch-crf>=0.7.2",
     "transformers[torch]>=4.54.1",
 ]
