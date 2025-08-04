@@ -4,6 +4,7 @@ import nltk
 from nltk.tokenize import sent_tokenize
 from transformers.pipelines import pipeline
 from transformers.trainer_utils import set_seed
+from typing import Any
 
 
 def tokenize_sentence():
@@ -71,7 +72,7 @@ def summarize_with_pegasus(summaries: dict[str, str], sample_text: str):
 
 
 def evaluate_summaries(summaries: dict[str, str], highlights: str):
-    results = {}
+    results: dict[str, Any] = {}
 
     evaluate_with_bleu(results, summaries, highlights)
     evaluate_with_rouge(results, summaries, highlights)
@@ -79,7 +80,7 @@ def evaluate_summaries(summaries: dict[str, str], highlights: str):
     print("Evaluation Results:", results)
 
 
-def evaluate_with_bleu(results: dict[str, str],
+def evaluate_with_bleu(results: dict[str, Any],
                        summaries: dict[str, str], highlights: str):
     bleu_metric = evaluate.load("sacrebleu")
     bleu_metric.add_batch(
@@ -89,7 +90,7 @@ def evaluate_with_bleu(results: dict[str, str],
     results["bleu"] = bleu_metric.compute()
 
 
-def evaluate_with_rouge(results: dict[str, str],
+def evaluate_with_rouge(results: dict[str, Any],
                         summaries: dict[str, str], highlights: str):
     rouge_metric = evaluate.load("rouge")
     rouge_metric.add_batch(
