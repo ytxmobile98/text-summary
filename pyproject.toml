@@ -1,12 +1,11 @@
 [project]
 name = "text-summary"
 version = "0.1.0"
-description = "Add your description here"
+description = "Text summarization with Transformers"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "evaluate>=0.4.5",
     "nltk>=3.9.1",
-    "pytorch-crf>=0.7.2",
     "transformers[torch]>=4.54.1",
 ]
