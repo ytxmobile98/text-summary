@@ -13,5 +13,6 @@ uv add 'transformers[torch]' evaluate nltk
 ## Run Example
 
 ```bash
-python3 src/main.py
+# Evaluation of different summarization models
+python3 src/eval/main.py
 ```
