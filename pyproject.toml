@@ -5,7 +5,9 @@ description = "Text summarization with Transformers"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "bert-extractive-summarizer>=0.10.1",
     "evaluate>=0.4.5",
+    "jieba>=0.42.1",
     "nltk>=3.9.1",
     "transformers[torch]>=4.54.1",
 ]
