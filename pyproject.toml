@@ -11,5 +11,6 @@ dependencies = [
     "nltk>=3.9.1",
     "transformers[torch]>=4.54.1",
     "tree-sitter>=0.25.2",
+    "tree-sitter-java>=0.23.5",
     "tree-sitter-python>=0.25.0",
 ]
