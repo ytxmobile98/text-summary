@@ -30,5 +30,13 @@ def process_tree(tree: Tree) -> tuple[dict, dict]:
     return out_tree, node_counts
 
 
-def print_output(d: dict):
+def print_dict(d: dict):
     print(json.dumps(d, indent=2, ensure_ascii=False, sort_keys=True))
+
+
+def print_output(out_tree: dict, node_counts: dict):
+    print("Output tree:")
+    print_dict(out_tree)
+
+    print("Node counts:")
+    print_dict(node_counts)

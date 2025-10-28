@@ -18,11 +18,7 @@ def main():
     tree: Tree = parser.parse(bytes(code, "utf8"))
     output_tree, node_counts = process_tree(tree)
 
-    print("Output tree:")
-    print_output(output_tree)
-
-    print("Node counts:")
-    print_output(node_counts)
+    print_output(output_tree, node_counts)
 
 
 if __name__ == "__main__":
