@@ -1,7 +1,8 @@
+import json
 from tree_sitter import Tree, Node
 
 
-def output_tree(tree: Tree) -> dict:
+def process_tree(tree: Tree) -> tuple[dict, dict]:
 
     node_counts = {}
 
@@ -17,7 +18,7 @@ def output_tree(tree: Tree) -> dict:
             "children": [],
         }
 
-    out = process_node(root_node)
+    out_tree = process_node(root_node)
 
     def traverse(node: Node, result_node: dict, level: int = 0):
         for child in node.children:
@@ -25,8 +26,9 @@ def output_tree(tree: Tree) -> dict:
             result_node["children"].append(child_result)
             traverse(child, child_result, level + 1)
 
-    traverse(root_node, out)
-    return {
-        "output_tree": out,
-        "node_counts": node_counts,
-    }
+    traverse(root_node, out_tree)
+    return out_tree, node_counts
+
+
+def print_output(d: dict):
+    print(json.dumps(d, indent=2, ensure_ascii=False, sort_keys=True))
