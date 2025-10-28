@@ -1,17 +1,4 @@
-import json
-from pathlib import Path
-from tree_sitter import Language, Parser, Tree, Node
-import tree_sitter_python as python_language
-
-CURDIR = Path(__file__).parent.resolve()
-
-PY_DIR = CURDIR / "examples" / "py"
-PY_FILE = PY_DIR / "fibonacci.py"
-
-parser = Parser(Language(python_language.language()))
-with open(PY_FILE, "r", encoding="utf-8") as f:
-    code = f.read()
-tree: Tree = parser.parse(bytes(code, "utf8"))
+from tree_sitter import Tree, Node
 
 
 def output_tree(tree: Tree) -> dict:
@@ -43,7 +30,3 @@ def output_tree(tree: Tree) -> dict:
         "output_tree": out,
         "node_counts": node_counts,
     }
-
-
-output = output_tree(tree)
-print(json.dumps(output, indent=2, ensure_ascii=False))
