@@ -1,6 +1,7 @@
 from spacy.lang.zh import Chinese
 from summarizer import Summarizer
 from summarizer.text_processors.sentence_handler import SentenceHandler
+import time
 from transformers import AutoConfig, AutoTokenizer, AutoModel
 
 MODEL_NAME = 'bert-base-chinese'
@@ -31,4 +32,9 @@ text = '''
 实现社会主义现代化是一个阶梯式递进、不断发展进步的历史过程，需要全党全国各族人民不懈努力、接续奋斗。让我们更加紧密地团结在以习近平同志为核心的党中央周围，深入学习贯彻党的二十届四中全会精神，勇担时代历史使命，牢牢把握战略主动，集中力量办好自己的事，一件事情接着一件事情办，一个五年规划接着一个五年规划干，不断开创以中国式现代化全面推进强国建设、民族复兴伟业新局面。
 '''
 
+start_time = time.time()
+
 print(model(text))
+
+end_time = time.time()
+print(f"Time taken for summarization: {end_time - start_time} seconds")
