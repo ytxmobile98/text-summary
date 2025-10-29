@@ -10,16 +10,19 @@ public class Main {
      * @return The nth term of the Fibonacci sequence
      */
     public static int fibonacci(int n) {
+        // Handle base cases
         if (n <= 0) {
             return 0;
         } else if (n == 1) {
             return 1;
         }
 
+        // general case using iterative approach
         int a = 0;
         int b = 1;
         int c;
         for (int i = 2; i <= n; i++) {
+            /* iterative approach */
             c = a + b;
             a = b;
             b = c;
