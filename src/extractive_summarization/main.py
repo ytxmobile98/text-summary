@@ -37,24 +37,26 @@ def parse_args() -> argparse.Namespace:
 def main():
     args = parse_args()
 
+    # Load model
     print('Start loading model...')
     start_time = time.time()
     model = load_model(MODEL_NAME)
     end_time = time.time()
     print(f'Model loaded in {end_time - start_time} seconds')
 
+    # Read input text
     with open(args.file, 'r', encoding='utf-8') as f:
         text = f.read()
 
+    # Summarize text
     print(f'Start summarizing text, text length: {len(text)},'
           f' model: {MODEL_NAME}...')
     start_time = time.time()
     summary = model(text)
     end_time = time.time()
-    print(f"Time taken for summarization: {end_time - start_time} seconds")
-
     print("Summary:")
     print(summary)
+    print(f"Time taken for summarization: {end_time - start_time} seconds")
 
 
 if __name__ == '__main__':
