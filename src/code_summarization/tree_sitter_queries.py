@@ -27,7 +27,7 @@ JAVA_QUERY = """
 ; 方法/函数
 (method_declaration
     (modifiers)?
-    type: (_)
+    type: (_unannotated_type) @method_return_type
     name: (identifier) @method_name
     parameters: (formal_parameters) @method_params
 )
