@@ -19,14 +19,14 @@ JAVA_QUERY = """
 
 ; 构造函数
 (constructor_declaration
-    (modifiers)?
+    (modifiers)? @modifiers
     name: (identifier) @method_constructor
     parameters: (formal_parameters) @method_params
 )
 
 ; 方法/函数
 (method_declaration
-    (modifiers)?
+    (modifiers)? @modifiers
     type: (_unannotated_type) @method_return_type
     name: (identifier) @method_name
     parameters: (formal_parameters) @method_params
