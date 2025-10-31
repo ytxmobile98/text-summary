@@ -30,6 +30,7 @@ def main():
     query = Query(language, JAVA_QUERY)
     query_cursor = QueryCursor(query)
     captures = query_cursor.captures(tree.root_node)
+    print("Captures:", captures)
     for capture_type, nodes in captures.items():
         for node in nodes:
             print(f"Capture Type: {capture_type},"

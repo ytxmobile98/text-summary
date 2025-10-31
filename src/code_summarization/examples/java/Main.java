@@ -9,7 +9,7 @@ public class Main {
      * @param n The term to calculate in the Fibonacci sequence (starting from 0)
      * @return The nth term of the Fibonacci sequence
      */
-    public static int fibonacci(int n) {
+    int fibonacci(int n) {
         // Handle base cases
         if (n <= 0) {
             return 0;
@@ -37,6 +37,7 @@ public class Main {
      */
     public static void main(String[] args) {
         final int n = Integer.parseInt(args[0]);
-        System.out.printf("fibonacci(%d) = %d\n", n, fibonacci(n));
+        Main m = new Main();
+        System.out.printf("fibonacci(%d) = %d\n", n, m.fibonacci(n));
     }
 }
