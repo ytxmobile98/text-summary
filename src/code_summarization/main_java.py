@@ -40,6 +40,7 @@ def main():
     # generate query matches
     print("========== MATCHES ==========")
     matches = query_cursor.matches(tree.root_node)
+    print(f"Matches ({len(matches)}):", matches)
     for i, d in matches:
         print(f"Match {i}:")
         for match_type, nodes in d.items():
