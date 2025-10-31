@@ -4,15 +4,14 @@ JAVA_QUERY = """
 
 ; 类和接口
 (class_declaration
-    (modifiers)?
+    (modifiers)? @modifiers
     name: (identifier) @class_name
-    body: (class_body) @class_body_node
 )
 
 ; 顶级枚举
 ; 我们只捕获枚举的名称，不进入其内部捕获常量
 (enum_declaration
-    (modifiers)?
+    (modifiers)? @modifiers
     name: (identifier) @enum_name
     body: (enum_body) @enum_body_node
 )
