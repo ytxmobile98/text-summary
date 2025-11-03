@@ -56,7 +56,7 @@ def process_tree(tree: Tree) -> Output:
     output.parse_tree = parse_tree
     output.nodes_by_levels = dict(sorted(
         output.nodes_by_levels.items(),
-        key=lambda item: item[0].byte_range,
+        key=lambda item: (item[0].start_point, item[0].end_point),
     ))
     return output
 
