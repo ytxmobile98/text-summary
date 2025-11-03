@@ -30,22 +30,22 @@ class Output:
             text[start_byte:end_byte].decode("utf-8")
 
     def print_tree_summary(self, query_str: str):
-        pick_matches = {
-            "package",
-            "class",
-            "enum",
-            "constructor",
-            "method",
-        }
-
         query = Query(self.tree.language, query_str)
         query_cursor = QueryCursor(query)
         matches = query_cursor.matches(self.tree.root_node)
 
         def print_matches(matches: list[tuple[int, dict[str, list[Node]]]]):
+            pick_match_types = {
+                "package",
+                "class",
+                "enum",
+                "constructor",
+                "method",
+            }
+
             for _, d in matches:
                 for match_type, nodes in d.items():
-                    if match_type not in pick_matches:
+                    if match_type not in pick_match_types:
                         continue
 
                     level, text = self.get_node_level_and_text(nodes)
