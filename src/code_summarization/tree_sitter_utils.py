@@ -8,20 +8,15 @@ class Output:
     node_counts: dict = {}
     nodes_by_levels: dict[Node, int] = {}
 
-    def print_parse_tree(self, file: str = "/dev/stdout"):
-        with open(file, 'w') as f:
-            print(
-                json.dumps(self.parse_tree, indent=2, ensure_ascii=False),
-                file=f,
-            )
+    def print(self):
+        print("Output tree:")
+        print_dict(self.parse_tree)
 
-    def print_node_counts(self, file: str = "/dev/stdout"):
-        with open(file, 'w') as f:
-            print(
-                json.dumps(self.node_counts, indent=2, ensure_ascii=False,
-                           sort_keys=True),
-                file=f,
-            )
+        print("Node counts:")
+        print_dict(self.node_counts)
+
+        print("Nodes by levels:")
+        pprint.pprint(self.nodes_by_levels)
 
 
 def process_tree(tree: Tree) -> Output:
@@ -63,14 +58,3 @@ def process_tree(tree: Tree) -> Output:
 
 def print_dict(d: dict):
     print(json.dumps(d, indent=2, ensure_ascii=False, sort_keys=True))
-
-
-def print_output(output: Output):
-    print("Output tree:")
-    print_dict(output.parse_tree)
-
-    print("Node counts:")
-    print_dict(output.node_counts)
-
-    print("Nodes by levels:")
-    pprint.pprint(output.nodes_by_levels)
