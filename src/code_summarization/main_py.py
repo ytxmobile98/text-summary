@@ -1,7 +1,7 @@
 from pathlib import Path
 from tree_sitter import Language, Parser, Tree
 import tree_sitter_python as python_language
-from tree_sitter_utils import process_tree
+from tree_sitter_utils import print_output, process_tree
 
 CURDIR = Path(__file__).parent.resolve()
 
@@ -18,8 +18,7 @@ def main():
     tree: Tree = parser.parse(bytes(code, "utf8"))
     output = process_tree(tree)
 
-    output.print_parse_tree()
-    output.print_node_counts()
+    print_output(output)
 
 
 if __name__ == "__main__":

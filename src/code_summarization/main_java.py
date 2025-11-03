@@ -2,7 +2,7 @@ from pathlib import Path
 from tree_sitter import Language, Parser, Query, QueryCursor, Tree
 import tree_sitter_java as java_language
 from tree_sitter_queries import JAVA_QUERY
-from tree_sitter_utils import process_tree
+from tree_sitter_utils import process_tree, print_output
 
 CURDIR = Path(__file__).parent.resolve()
 
@@ -21,8 +21,7 @@ def main():
     print("========== PARSE TREE ==========")
     tree: Tree = parser.parse(bytes(code, "utf8"))
     output = process_tree(tree)
-    output.print_parse_tree()
-    output.print_node_counts()
+    print_output(output)
     print()
 
     # generate query captures
