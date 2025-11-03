@@ -8,6 +8,9 @@ public class Main {
     public static class Test {
         Test() {
         }
+
+        Test(int x) {
+        }
     }
 
     /**

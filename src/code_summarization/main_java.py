@@ -47,6 +47,10 @@ def main():
                 print(f"  Match Type: {match_type},"
                       f" Text: {(node.text or b'').decode('utf-8')}")
 
+    # generate query captures and matches
+    print("========== TREE SUMMARY ==========")
+    output.print_tree_summary(JAVA_QUERY)
+
 
 if __name__ == "__main__":
     main()

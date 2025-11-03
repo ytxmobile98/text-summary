@@ -1,9 +1,10 @@
 import json
 import pprint
-from tree_sitter import Tree, Node
+from tree_sitter import Node, Query, QueryCursor, Tree
 
 
 class Output:
+    tree: Tree
     parse_tree: dict = {}
     node_counts: dict = {}
     nodes_by_levels: dict[Node, int] = {}
@@ -18,10 +19,46 @@ class Output:
         print("Nodes by levels:")
         pprint.pprint(self.nodes_by_levels)
 
+    def get_node_level_and_text(self, nodes: list[Node]) -> tuple[int, str]:
+        if not nodes:
+            return 0, ""
+
+        start_byte = nodes[0].start_byte
+        end_byte = nodes[-1].end_byte
+        text = self.tree.root_node.text or b""
+        return self.nodes_by_levels.get(nodes[0], 0), \
+            text[start_byte:end_byte].decode("utf-8")
+
+    def print_tree_summary(self, query_str: str):
+        pick_matches = {
+            "package",
+            "class",
+            "enum",
+            "constructor",
+            "method",
+        }
+
+        query = Query(self.tree.language, query_str)
+        query_cursor = QueryCursor(query)
+        matches = query_cursor.matches(self.tree.root_node)
+
+        def print_matches(matches: list[tuple[int, dict[str, list[Node]]]]):
+            for _, d in matches:
+                for match_type, nodes in d.items():
+                    if match_type not in pick_matches:
+                        continue
+
+                    level, text = self.get_node_level_and_text(nodes)
+                    print(f"{'  ' * level}- ({match_type}) {text}")
+
+        print_matches(matches)
+
 
 def process_tree(tree: Tree) -> Output:
 
     output = Output()
+    output.tree = tree
+
     node_counts = output.node_counts
 
     root_node = tree.root_node
