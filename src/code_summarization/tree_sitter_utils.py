@@ -34,15 +34,9 @@ class Output:
         query_cursor = QueryCursor(query)
         matches = query_cursor.matches(self.tree.root_node)
 
-        def print_matches(matches: list[tuple[int, dict[str, list[Node]]]]):
-            pick_match_types = {
-                "package",
-                "class",
-                "enum",
-                "constructor",
-                "method",
-            }
-
+        def print_matches(
+                pick_match_types: set[str],
+                matches: list[tuple[int, dict[str, list[Node]]]]):
             for _, d in matches:
                 for match_type, nodes in d.items():
                     if match_type not in pick_match_types:
@@ -51,7 +45,14 @@ class Output:
                     level, text = self.get_node_level_and_text(nodes)
                     print(f"{'  ' * level}- ({match_type}) {text}")
 
-        print_matches(matches)
+        pick_match_types = {
+            "package",
+            "class",
+            "enum",
+            "constructor",
+            "method",
+        }
+        print_matches(pick_match_types, matches)
 
 
 def process_tree(tree: Tree) -> Output:
