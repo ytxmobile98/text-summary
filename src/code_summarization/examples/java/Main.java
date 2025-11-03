@@ -1,6 +1,15 @@
 import java.lang.System;
 
 public class Main {
+
+    /**
+     * Inner class Test with no content.
+     */
+    public static class Test {
+        Test() {
+        }
+    }
+
     /**
      * Calculates the nth term of the Fibonacci sequence.
      * Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
