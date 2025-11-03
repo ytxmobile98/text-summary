@@ -49,7 +49,14 @@ def main():
 
     # generate query captures and matches
     print("========== TREE SUMMARY ==========")
-    output.print_tree_summary(JAVA_QUERY)
+    match_node_types = {
+        "package",
+        "class",
+        "enum",
+        "constructor",
+        "method",
+    }
+    output.print_tree_summary(match_node_types, JAVA_QUERY)
 
 
 if __name__ == "__main__":

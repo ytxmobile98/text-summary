@@ -29,30 +29,21 @@ class Output:
         return self.nodes_by_levels.get(nodes[0], 0), \
             text[start_byte:end_byte].decode("utf-8")
 
-    def print_tree_summary(self, query_str: str):
+    def print_tree_summary(self, match_node_types: set[str], query_str: str):
         query = Query(self.tree.language, query_str)
         query_cursor = QueryCursor(query)
         matches = query_cursor.matches(self.tree.root_node)
 
-        def print_matches(
-                pick_match_types: set[str],
-                matches: list[tuple[int, dict[str, list[Node]]]]):
+        def print_matches(matches: list[tuple[int, dict[str, list[Node]]]]):
             for _, d in matches:
                 for match_type, nodes in d.items():
-                    if match_type not in pick_match_types:
+                    if match_type not in match_node_types:
                         continue
 
                     level, text = self.get_node_level_and_text(nodes)
                     print(f"{'  ' * level}- ({match_type}) {text}")
 
-        pick_match_types = {
-            "package",
-            "class",
-            "enum",
-            "constructor",
-            "method",
-        }
-        print_matches(pick_match_types, matches)
+        print_matches(matches)
 
 
 def process_tree(tree: Tree) -> Output:
